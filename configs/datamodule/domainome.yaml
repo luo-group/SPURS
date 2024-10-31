@@ -1,0 +1,6 @@
+_target_: domainome
+
+
+batch_size: 4
+num_workers: 16
+pin_memory: True
