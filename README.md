@@ -1,4 +1,8 @@
-# SPURS
+
+# SPURS: Rewiring protein sequence and structure generative models to enhance protein stability prediction
+
+SPURS is a accurate, rapid, scalable, and generalizable stability predictor. This repository is an official implementation of the paper [Rewiring protein sequence and structure generative models to enhance protein stability prediction](https://www.biorxiv.org/content/10.1101/2025.02.13.638154v1).
+![model](figs/fig1.png)
 ## Environment
 ```shell
 # get esm
@@ -12,12 +16,43 @@ pip install git+https://github.com/facebookresearch/esm.git
 pip install torch==1.12.0+cu113 torchvision==0.13.0+cu113 torchaudio==0.12.0 --extra-index-url https://download.pytorch.org/whl/cu113
 ```
 
-## Reproduce result
+## Data
 Download `data.tar.gz` from [link](https://www.dropbox.com/scl/fi/uo4e6lvptyy9df5xfulsc/data.tar.gz?rlkey=voi6fxu6ojbzwdk67jlooy8kb&st=4iinnpbc&dl=0).
-### Data
 ```shell
 tar -xzvf data.tar.gz
 ```
+
+## Inference
+
+```python
+from spurs.inference import get_SPURS, parse_pdb
+# ~ 10s
+model, cfg = get_SPURS('./data/checkpoints/spurs')
+pdb_name = 'DOCK1_MOUSE'
+pdb_path = './data/inference_example/' + pdb_name + '.pdb'
+chain = 'A'
+pdb = parse_pdb(pdb_path, pdb_name, chain, cfg)
+# ~ 1s
+result = model(pdb,return_logist=True)
+
+ALPHABET = 'ACDEFGHIKLMNPQRSTVWY'
+# mutation A2C
+wt_aa = 'A'
+mt_aa = 'C'
+position = 2
+
+wt_index = ALPHABET.index(wt_aa)
+mt_index = ALPHABET.index(mt_aa)
+shift = 1
+# cls token at position 0
+position += shift
+
+
+ddg = (result[position,wt_index] - result[position,mt_index]).item()
+```
+
+
+## Reproduce result
 ### Stability Prediction
 Evaluation on the test sets:
 
@@ -65,20 +100,7 @@ This command will use all accessible CPU cores by default. If you want to use a 
 taskset -c 0-80 python run_proteingym.py
 ```
 
-SPURS-augmented models were built upon the [Augmented models](https://www.nature.com/articles/s41587-021-01146-5) framework (Hsu et al., *Nat Biotechnol*, 2022). We adapted the code from the original [GitHub repo](https://github.com/chloechsu/combining-evolutionary-and-assay-labelled-data) (commit `fdaa5bb`) and retained only the necessary files. A [`DDGPredictor`](https://github.com/li-ziang/psnet-release/blob/main/combining-evolutionary-and-assay-labelled-data/src/predictors/esm_predictors.py#L14) is added to introduce predicted ddG into the regression model.
+SPURS-augmented models were built upon the [Augmented models](https://www.nature.com/articles/s41587-021-01146-5) framework (Hsu et al., *Nat biotechnology*, 2022). We adapted the code from the original [GitHub repo](https://github.com/chloechsu/combining-evolutionary-and-assay-labelled-data) (commit `fdaa5bb`) and retained only the necessary files. A [`DDGPredictor`](https://github.com/li-ziang/psnet-release/blob/main/combining-evolutionary-and-assay-labelled-data/src/predictors/esm_predictors.py#L14) is added to introduce predicted ddG into the regression model.
 
-## Inference
-
-```python
-from spurs.inference import get_SPURS, parse_pdb
-# ~ 10s
-model, cfg = get_SPURS('./data/checkpoints/spurs')
-pdb_name = 'DOCK1_MOUSE'
-pdb_path = './data/inference_example/' + pdb_name + '.pdb'
-chain = 'A'
-pdb = parse_pdb(pdb_path, pdb_name, chain, cfg)
-# ~ 1s
-result = model(pdb,return_logist=True)
-```
 
 
