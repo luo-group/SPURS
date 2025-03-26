@@ -37,7 +37,7 @@ result = model(pdb,return_logist=True)
 
 ALPHABET = 'ACDEFGHIKLMNPQRSTVWY'
 # mutation A2C
-wt_aa = 'A'
+wt_aa = 'V'
 mt_aa = 'C'
 position = 2
 
