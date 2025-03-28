@@ -33,22 +33,7 @@ pdb_path = './data/inference_example/' + pdb_name + '.pdb'
 chain = 'A'
 pdb = parse_pdb(pdb_path, pdb_name, chain, cfg)
 # ~ 1s
-result = model(pdb,return_logist=True)
-
-ALPHABET = 'ACDEFGHIKLMNPQRSTVWY'
-# mutation A2C
-wt_aa = 'V'
-mt_aa = 'C'
-position = 2
-
-wt_index = ALPHABET.index(wt_aa)
-mt_index = ALPHABET.index(mt_aa)
-shift = 1
-# cls token at position 0
-position += shift
-
-
-ddg = (result[position,wt_index] - result[position,mt_index]).item()
+ddg = model(pdb,return_logist=True)
 ```
 
 
