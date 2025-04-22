@@ -133,6 +133,12 @@ class MegaScaleDataset(torch.utils.data.Dataset):
         log.info("loading structure dataset")
         with open(structure_path_json, 'r') as file:
             self.json_dataset = json.load(file)
+
+        self.mut_seq = mut_seq
+        self.single_mut = single_mut
+        self.std_ratio = std_ratio
+        self.loss_ratio = loss_ratio
+        self.train_ratio = train_ratio
             
     def cal_index2mt(self, index):
         return self.index2mt[index]

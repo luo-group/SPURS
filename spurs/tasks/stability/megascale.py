@@ -302,14 +302,15 @@ class MegaScale(TaskLitModule):
         append_tensors = self.append_tensors.compute().cpu()
         indices = torch.argmax(append_tensors[:,21:], dim=1)
 
+        torch.save([pred_scores,fermi_scores,pdb_chain],'pred_scores.pt')
         if len(np.unique(pdb_chain))==522: # domainome, return median rho
             # use cal_rho_by_chain
             rhos = cal_rho_by_chain(pred_scores,fermi_scores,pdb_chain,dataset_name,mut_ids,indices)
         else:
             rhos = cal_roh(pred_scores,fermi_scores,pdb_chain,dataset_name)
 
-        save_result = [pred_scores,fermi_scores,pdb_chain,dataset_name]
-        torch.save(save_result, 'pred_result.pt')
+        # save_result = [pred_scores,fermi_scores,pdb_chain,dataset_name]
+        # torch.save(save_result, 'pred_result.pt')
         
         for k,v in rhos.items():
             if k[:3] == 'avg' or k[:3] == 'med':

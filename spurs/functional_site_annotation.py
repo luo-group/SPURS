@@ -158,3 +158,4 @@ def plot_sigmoid_results(result,shift=1,vcenter = 0,highlight_positions =[]):
     plt.ylim(-1.1, 1.1)
 
     plt.show()
+    return normalized_data

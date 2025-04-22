@@ -68,9 +68,6 @@ class ddgGeo(torch.utils.data.Dataset):
 
             self.mut_numbers = mut_numbers
         self.protein_index_list = [np.arange(i) for i in len_arr]
-        if self.stage == 'train':
-            for i in range(len(self.protein_index_list)):
-                np.random.shuffle(self.protein_index_list[i][1:])
 
         
     def __len__(self):

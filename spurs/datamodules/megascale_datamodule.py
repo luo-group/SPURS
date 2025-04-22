@@ -58,8 +58,14 @@ class MegaScaleModule(LightningDataModule):
             self.collate_batch = self.alphabet.featurize
         elif stage == 'test':
 
-            self.test_dataset = MegaScaleTestDatasets()
-
+            # self.test_dataset = MegaScaleTestDatasets()
+            self.test_dataset = MegaScaleDataset(
+                reduce = '',
+                split = 'test',
+                single_mut = self.hparams.single_mut,
+                mut_seq = self.hparams.mut_seq,
+                train_ratio = 1,
+            )
 
             self.collate_batch = self.alphabet.featurize
         
