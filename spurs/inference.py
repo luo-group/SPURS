@@ -7,6 +7,9 @@ from spurs.models.stability.spurs import SPURS
 from spurs.datamodules.datasets.utils import alt_parse_PDB
 from spurs.datamodules.datasets.utils import get_pdb
 from spurs.datamodules.datasets.data_utils import Alphabet
+from huggingface_hub import hf_hub_download
+
+
 
 def get_SPURS(ckpt_path: str, device: str = 'cuda' if torch.cuda.is_available() else 'cpu') -> torch.nn.Module:
     cfg = OmegaConf.load(os.path.join(ckpt_path,'.hydra/config.yaml'))
@@ -21,6 +24,27 @@ def get_SPURS(ckpt_path: str, device: str = 'cuda' if torch.cuda.is_available() 
     model.load_state_dict(ckpt_remove_model, strict=False)    
     
     return model, cfg
+
+
+def get_SPURS_from_hub(repo_id: str = "cyclization9/SPURS", device: str = 'cuda' if torch.cuda.is_available() else 'cpu'):
+    # Download files from Hugging Face Hub
+    config_path = hf_hub_download(repo_id=repo_id, filename="config.yaml")
+    ckpt_path = hf_hub_download(repo_id=repo_id, filename="best.ckpt")
+
+    # Load config
+    cfg = OmegaConf.load(config_path)
+    del cfg['model']['_target_']
+    seed_everything(cfg['train']['seed'])
+
+    # Instantiate model and load checkpoint
+    model = SPURS(cfg['model']).to(device)
+    ckpt = torch.load(ckpt_path, map_location=torch.device('cpu'))['state_dict']
+    ckpt_remove_model = {k[6:]: v for k, v in ckpt.items() if 'model.' in k}
+    model.load_state_dict(ckpt_remove_model, strict=False)
+
+    return model, cfg
+
+
 
 def parse_pdb(pdb_path: str, pdb_name: str, chain: str, cfg, device: str = 'cuda' if torch.cuda.is_available() else 'cpu'):
 
