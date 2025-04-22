@@ -56,6 +56,29 @@ ddg_mt # ddg for W1A
 ```
 
 ### Multi-mutation Prediction
+```python
+from spurs.inference import parse_pdb, get_SPURS_multi_from_hub, parse_pdb_for_mutation
+import torch
+
+mut_info_list = [
+    ['V2C','P3T'], # multi-mutation 1
+    ['W1A','V2Y',], # multi-mutation 2
+]
+pdb_name = 'DOCK1_MOUSE'
+pdb_path = './data/inference_example/' + pdb_name + '.pdb'
+chain = 'A'
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+model, cfg = get_SPURS_multi_from_hub()
+
+pdb = parse_pdb(pdb_path, pdb_name, chain, cfg)
+mut_ids, append_tensors = parse_pdb_for_mutation(mut_info_list)
+pdb['mut_ids'] = mut_ids
+pdb['append_tensors'] = append_tensors.to(device)
+
+ddg = model(pdb)
+ddg # ddg[i] for mut_info_list[i]
+```
 
 ## 🎯 Functional Site Identification
 SPURS can assign function scores to each position of the protein with protein sequence and structure as input. An example can be found at [./notebooks/functional_site_identification.ipynb](./notebooks/functional_site_identification.ipynb).
