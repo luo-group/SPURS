@@ -1,11 +1,17 @@
+# <div align="center">SPURS</div>
+<div align="center">
+  <strong>Rewiring protein sequence and structure generative models to enhance protein stability prediction</strong>
+</div>
 
-# SPURS: Rewiring protein sequence and structure generative models to enhance protein stability prediction
+<div align="center">
+  <img src="figs/fig1.png" alt="SPURS Model Architecture" width="600"/>
+</div>
 
 SPURS is a accurate, rapid, scalable, and generalizable stability predictor. This repository is an official implementation of the paper [Rewiring protein sequence and structure generative models to enhance protein stability prediction](https://www.biorxiv.org/content/10.1101/2025.02.13.638154v1).
-![model](figs/fig1.png)
-## Environment
+
+## 🛠️ Environment
+
 ```shell
-# get esm
 conda create -n spurs python=3.7 pip
 conda activate spurs
 
@@ -16,10 +22,13 @@ pip install git+https://github.com/facebookresearch/esm.git
 pip install torch==1.12.0+cu113 torchvision==0.13.0+cu113 torchaudio==0.12.0 --extra-index-url https://download.pytorch.org/whl/cu113
 ```
 
-## Inference
+## 🔍 Inference
+SPURS achieves both efficient and accurate single mutation prediction. Additionally, we have developed an extension module for SPURS that enables multi-mutation prediction. SPURS demonstrates superior performance compared to current leading stability predictors in both single and multi-mutation scenarios.
 
+### Single Mutation Prediction
 ```python
 from spurs.inference import get_SPURS, parse_pdb, get_SPURS_from_hub
+# load model from huggingface
 # ~ 10s
 model, cfg = get_SPURS_from_hub()
 pdb_name = 'DOCK1_MOUSE'
@@ -29,15 +38,37 @@ pdb = parse_pdb(pdb_path, pdb_name, chain, cfg)
 # ~ 1s
 ddg = model(pdb,return_logist=True)
 ```
+The results have been already normalized, so the value in `ddg` for wild-type amino acids are zero.
+```python
+# wild-type amino acid at position 1
+wt_aa = pdb['seq'][0]
+ALPHABET = 'ACDEFGHIKLMNPQRSTVWY'
+ddg_wt = ddg[0,ALPHABET.index(wt_aa)]
+ddg_wt # should be 0
+```
 
-## Data
+For mutation: `W1A`:
+```python
+mt_aa = 'A'
+ALPHABET = 'ACDEFGHIKLMNPQRSTVWY'
+ddg_mt = ddg[0,ALPHABET.index(mt_aa)]
+ddg_mt # ddg for W1A
+```
+
+### Multi-mutation Prediction
+
+## 🎯 Functional Site Identification
+SPURS can assign function scores to each position of the protein with protein sequence and structure as input. An example can be found at [./notebooks/functional_site_identification.ipynb](./notebooks/functional_site_identification.ipynb).
+<img src="figs/slides_function_score.png" width="400"/>
+
+
+## 📦 Data
 Download `data.tar.gz` from [link](https://www.dropbox.com/scl/fi/uo4e6lvptyy9df5xfulsc/data.tar.gz?rlkey=voi6fxu6ojbzwdk67jlooy8kb&st=4iinnpbc&dl=0).
 ```shell
 tar -xzvf data.tar.gz
 ```
 
-
-## Reproduce result
+## 🔄 Reproduce result
 ### Stability Prediction
 Evaluation on the test sets:
 
@@ -58,8 +89,6 @@ python ./test.py  experiment_path=data/checkpoints/ThermoMPNN datamodule._target
 
 
 Results on Megascale and ten test sets can be processed using [convert.ipynb](./notebooks/convert.ipynb)
-### Functional Site Identification
-An example can be found at [functional_site_identification.ipynb](./notebooks/functional_site_identification.ipynb). This is the reuslt for Fig3h in the paper (UniProt ID: P00327, PDB ID: 1QLH).
 
 ### Fitness Prediction
 
