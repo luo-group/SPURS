@@ -16,24 +16,24 @@ pip install git+https://github.com/facebookresearch/esm.git
 pip install torch==1.12.0+cu113 torchvision==0.13.0+cu113 torchaudio==0.12.0 --extra-index-url https://download.pytorch.org/whl/cu113
 ```
 
-## Data
-Download `data.tar.gz` from [link](https://www.dropbox.com/scl/fi/uo4e6lvptyy9df5xfulsc/data.tar.gz?rlkey=voi6fxu6ojbzwdk67jlooy8kb&st=4iinnpbc&dl=0).
-```shell
-tar -xzvf data.tar.gz
-```
-
 ## Inference
 
 ```python
-from spurs.inference import get_SPURS, parse_pdb
+from spurs.inference import get_SPURS, parse_pdb, get_SPURS_from_hub
 # ~ 10s
-model, cfg = get_SPURS('./data/checkpoints/spurs')
+model, cfg = get_SPURS_from_hub()
 pdb_name = 'DOCK1_MOUSE'
 pdb_path = './data/inference_example/' + pdb_name + '.pdb'
 chain = 'A'
 pdb = parse_pdb(pdb_path, pdb_name, chain, cfg)
 # ~ 1s
 ddg = model(pdb,return_logist=True)
+```
+
+## Data
+Download `data.tar.gz` from [link](https://www.dropbox.com/scl/fi/uo4e6lvptyy9df5xfulsc/data.tar.gz?rlkey=voi6fxu6ojbzwdk67jlooy8kb&st=4iinnpbc&dl=0).
+```shell
+tar -xzvf data.tar.gz
 ```
 
 
