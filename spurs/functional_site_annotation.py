@@ -85,7 +85,21 @@ def get_sigmoid_results(mask_results,ddg):
 
     return y, X, None,popt
 
-def inference_org(sequence,index,batch_converter,model,device,alphabet):
+def inference_wt_seq(sequence: str, indices: list, batch_converter, model, device: torch.device, alphabet):
+    """Perform inference on a wild-type sequence using the ESM model.
+
+    Args:
+        sequence (str): The protein sequence to analyze.
+        indices (list[int]): List of indices to analyze in the sequence.
+        batch_converter: ESM batch converter for tokenizing sequences.
+        batch_converter: ESM batch converter.
+        model: ESM model.
+        device: 'cpu' or 'cuda'
+
+    Returns:
+        torch.Tensor: Stacked logits for each position in the sequence, 
+                     shape (len(indices), 20) where 20 represents the 20 standard amino acids.
+    """
     data = [("sequence", sequence)]
     batch_labels, batch_strs, batch_tokens = batch_converter(data)
     batch_tokens = batch_tokens.to(device)
@@ -94,26 +108,44 @@ def inference_org(sequence,index,batch_converter,model,device,alphabet):
         results = model(batch_tokens, repr_layers=[33], return_contacts=False)
         logits = results["logits"]
 
-    logits_original = logits[0, index, :] 
+    logits_original = logits[0, indices, :] 
     l = 'ACDEFGHIKLMNPQRSTVWY'
     logist = [logits_original[:,alphabet.tok_to_idx[i]] for i in l]
     return torch.stack(logist).T
 
-def get_mask_results(sequence,mut_index,original_sequence,batch_converter,model,device,alphabet):
-    mask_results = inference_org(original_sequence,[i for i in mut_index],batch_converter,model,device,alphabet)
-    shift = 1
+def get_wt_aa_logit_differences(sequence: str, mut_indices: list, batch_converter, model, device: torch.device, alphabet, shift: int = 1):
+    """Calculate differences between wild-type and all possible amino acid logits.
+
+    For each position in the sequence, this function computes the difference between
+    the wild-type amino acid logits and the logits for all 20 possible amino acids.
+    This represents how much the model's predictions deviate from the wild-type at each position.
+
+    Args:
+        sequence (str): The protein sequence to analyze.
+        mut_indices (list[int]): List of indices to analyze in the sequence.
+        batch_converter: ESM batch converter.
+        model: ESM model.
+        device: 'cpu' or 'cuda'
+        alphabet: ESM alphabet for token mapping.
+        shift (int, optional): Shift value for index adjustment. Defaults to 1.
+
+    Returns:
+        torch.Tensor: Differences between wild-type and all possible amino acid logits,
+                     shape (len(mut_indices), 20) where 20 represents the 20 standard amino acids.
+                     Each value represents how much the model's prediction for that amino acid
+                     differs from the wild-type at that position.
+    """
+    mask_results = inference_wt_seq(sequence,[i for i in mut_indices],batch_converter,model,device,alphabet)
+    
     l = 'ACDEFGHIKLMNPQRSTVWY'
-    aa_indcies = [l.index(sequence[i-shift]) for i in mut_index]
+    aa_indcies = [l.index(sequence[i-shift]) for i in mut_indices]
     # to one hot
-    one_hot = torch.zeros(len(mut_index),20).to(mask_results.device)
-    one_hot[range(len(mut_index)),aa_indcies] = 1
-    aa_dg = (one_hot * mask_results).sum(-1).reshape(-1,1)
-    print(aa_dg.shape,mask_results.shape)
-    mask_results = mask_results - aa_dg
+    one_hot = torch.zeros(len(mut_indices),20).to(mask_results.device)
+    one_hot[range(len(mut_indices)),aa_indcies] = 1
+    wt_logits = (one_hot * mask_results).sum(-1).reshape(-1,1)
+    # print(wt_logits.shape,mask_results.shape)
+    mask_results = mask_results - wt_logits
     return mask_results
-
-
-
 
 def plot_sigmoid_results(result,shift=1,vcenter = 0,highlight_positions =[]):
     arr = (result[0].numpy()-sigmoid_function(result[1].numpy(), *result[-1])).reshape(-1,20).sum(-1)
