@@ -82,6 +82,8 @@ ddg # ddg[i] for mut_info_list[i]
 
 ## 🎯 Functional Site Identification
 SPURS can assign function scores to each position of the protein with protein sequence and structure as input. An example can be found at [./notebooks/functional_site_identification.ipynb](./notebooks/functional_site_identification.ipynb).
+
+Below is the visualization of the ground truth functional sites(X) and function scores assigned by SPURS for LIM domain in FHL1 (UniProt ID: Q13642; PDB ID: 1X63).
 <img src="figs/slides_function_score.png" width="400"/>
 
 
@@ -128,8 +130,8 @@ from importlib_metadata import version, PackageNotFoundError
 
 To run fitness prediction
 ```shell
-cd combining-evolutionary-and-assay-labelled-data
-export PROJECT_ROOT=$PWD/../
+cd experiments/combining-evolutionary-and-assay-labelled-data
+export PROJECT_ROOT=$PWD/../../
 python run_proteingym.py
 ```
 This command will use all accessible CPU cores by default. If you want to use a specific range of CPUs, such as CPU0-80, you can use:
