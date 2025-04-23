@@ -8,7 +8,7 @@ from spurs.datamodules.datasets.utils import alt_parse_PDB
 from spurs.datamodules.datasets.utils import get_pdb
 from spurs.datamodules.datasets.data_utils import Alphabet
 from huggingface_hub import hf_hub_download
-
+from spurs.models.stability.spurs_multi import SPURSMulti
 
 
 def get_SPURS(ckpt_path: str, device: str = 'cuda' if torch.cuda.is_available() else 'cpu') -> torch.nn.Module:
@@ -28,8 +28,8 @@ def get_SPURS(ckpt_path: str, device: str = 'cuda' if torch.cuda.is_available() 
 
 def get_SPURS_from_hub(repo_id: str = "cyclization9/SPURS", device: str = 'cuda' if torch.cuda.is_available() else 'cpu'):
     # Download files from Hugging Face Hub
-    config_path = hf_hub_download(repo_id=repo_id, filename="config.yaml")
-    ckpt_path = hf_hub_download(repo_id=repo_id, filename="best.ckpt")
+    config_path = hf_hub_download(repo_id=repo_id, filename="spurs/.hydra/config.yaml")
+    ckpt_path = hf_hub_download(repo_id=repo_id, filename="spurs/checkpoints/best.ckpt")
 
     # Load config
     cfg = OmegaConf.load(config_path)
@@ -44,6 +44,23 @@ def get_SPURS_from_hub(repo_id: str = "cyclization9/SPURS", device: str = 'cuda'
 
     return model, cfg
 
+def get_SPURS_multi_from_hub(repo_id: str = "cyclization9/SPURS", device: str = 'cuda' if torch.cuda.is_available() else 'cpu'):
+    # Download files from Hugging Face Hub
+    config_path = hf_hub_download(repo_id=repo_id, filename="spurs_multi/.hydra/config.yaml")
+    ckpt_path = hf_hub_download(repo_id=repo_id, filename="spurs/checkpoints/best.ckpt")
+
+    # Load config
+    cfg = OmegaConf.load(config_path)
+    del cfg['model']['_target_']
+    seed_everything(cfg['train']['seed'])
+
+    # Instantiate model and load checkpoint
+    model = SPURSMulti(cfg['model']).to(device)
+    ckpt = torch.load(ckpt_path, map_location=torch.device('cpu'))['state_dict']
+    ckpt_remove_model = {k[6:]: v for k, v in ckpt.items() if 'model.' in k}
+    model.load_state_dict(ckpt_remove_model, strict=False)
+
+    return model, cfg
 
 
 def parse_pdb(pdb_path: str, pdb_name: str, chain: str, cfg, device: str = 'cuda' if torch.cuda.is_available() else 'cpu'):
@@ -76,3 +93,37 @@ def parse_pdb(pdb_path: str, pdb_name: str, chain: str, cfg, device: str = 'cuda
         # result = result.detach().cpu()
         # result_dict[pdb_name] = result
         return pdb
+
+def parse_pdb_for_mutation(mut_info_list):
+    """
+    Parse mutation information into tensor format required by model.
+    
+    Args:
+        mut_info_list: List of lists containing mutation strings like [['V2C','P3T'], ['W1A','V2Y']]
+        
+    Returns:
+        mut_ids: Tensor of mutation positions (0-indexed)
+        append_tensors: Tensor of amino acid indices for wild-type and mutant residues
+    """
+    mut_ids = []
+    append_tensors = []
+    ALPHABET = 'ACDEFGHIKLMNPQRSTVWY'
+    
+    for mut_info in mut_info_list:
+        mut_ids_ = []
+        append_tensors_ = []
+        for mut in mut_info:
+            # Extract position (convert to 0-based indexing)
+            mut_ids_.append(int(mut[1:-1]) - 1)
+            # Get indices for wild-type and mutant amino acids
+            append_tensors_.append(ALPHABET.index(mut[0]))    # Wild-type
+            append_tensors_.append(ALPHABET.index(mut[-1]))   # Mutant
+        mut_ids.append(mut_ids_)
+        append_tensors.append(append_tensors_)
+        
+    mut_ids = torch.tensor(mut_ids)
+    append_tensors = torch.tensor(append_tensors)
+    
+    return mut_ids, append_tensors
+
+
