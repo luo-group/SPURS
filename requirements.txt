@@ -48,3 +48,6 @@ fairscale
 # --------- jupyter --------- #
 jupyter
 ipykernel
+
+# huggingface_hub
+huggingface_hub
