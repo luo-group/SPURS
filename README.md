@@ -13,7 +13,7 @@
 </div>
 
 <div align="center">
-  <img src="figs/fig1.png" alt="SPURS Model Architecture" width="600"/>
+  <img src="figs/fig1.png" alt="SPURS Model Architecture" width="800"/>
 </div>
 
 SPURS is an accurate, rapid, scalable, and generalizable stability predictor. This repository is the official implementation of the paper [Rewiring protein sequence and structure generative models to enhance protein stability prediction](https://www.biorxiv.org/content/10.1101/2025.02.13.638154v1). For detailed documentation, please visit our [documentation site](https://spurs.readthedocs.io/en/latest/).
