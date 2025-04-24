@@ -11,7 +11,7 @@ from huggingface_hub import hf_hub_download
 from spurs.models.stability.spurs_multi import SPURSMulti
 
 
-def get_SPURS(ckpt_path: str, device: str = 'cuda' if torch.cuda.is_available() else 'cpu') -> torch.nn.Module:
+def get_SPURS(ckpt_path: str, device: str = 'cuda' if torch.cuda.is_available() else 'cpu'):
     """Load a SPURS model from a local checkpoint file.
 
     This function loads a SPURS model and its configuration from a local checkpoint directory.
@@ -23,8 +23,8 @@ def get_SPURS(ckpt_path: str, device: str = 'cuda' if torch.cuda.is_available() 
 
     Returns:
         tuple: A tuple containing:
-            - model (torch.nn.Module): The loaded SPURS model
-            - cfg (OmegaConf): The model configuration
+        - model (torch.nn.Module): The loaded SPURS model
+        - cfg (OmegaConf): The model configuration
 
     Example:
         >>> model, cfg = get_SPURS("path/to/checkpoint")

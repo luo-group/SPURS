@@ -44,6 +44,7 @@ opt_einsum
 sympy
 e3nn
 fairscale
+git+https://github.com/facebookresearch/esm.git
 
 # --------- jupyter --------- #
 jupyter

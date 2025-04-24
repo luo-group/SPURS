@@ -1,0 +1,17 @@
+name: spurs2
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - pytorch=1.12.0
+  - pytorch-lightning=1.7.3
+  - biopython=1.79
+  - sphinx>=4.0.0,<6.0.0
+  - sphinx-rtd-theme>=1.0.0
+  - sphinx-autodoc-typehints>=1.19.5
+  - pip
+  - pip:
+    - -r ../requirements.txt
+    - -e .. 

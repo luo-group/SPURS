@@ -1,13 +1,13 @@
 API Reference
-============
+================
 
 This page provides detailed documentation for the SPURS package. SPURS offers APIs for protein stability prediction and functional site identification.
 
 Getting Started
--------------
+-------------------------------------------------------------------------------------------
 
 Model Loading and Inference
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. automodule:: spurs.inference
    :members: get_SPURS, get_SPURS_from_hub, parse_pdb
@@ -35,7 +35,7 @@ Basic usage:
     ddg = model(pdb, return_logist=True)
 
 Functional Site Identification
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. automodule:: spurs.functional_site_annotation
    :members: get_wt_aa_logit_differences, inference_wt_seq
@@ -65,7 +65,7 @@ Basic usage:
     )
 
 Model Architecture
-----------------
+-------------------------------------------------------------------------------------------
 
 SPURS Models
 ~~~~~~~~~~~
