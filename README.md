@@ -94,7 +94,7 @@ SPURS can assign function scores to each position of the protein with protein se
 
 Below is the visualization of the ground truth functional sites(X) and function scores assigned by SPURS for LIM domain in FHL1 (UniProt ID: Q13642; PDB ID: 1X63).
 <div align="center">
-  <img src="figs/slides_function_score.png" width="800" style="transform: rotate(0deg);" alt="Function Score Visualization"/>
+  <img src="figs/slides_function_score.png" width="500" style="transform: rotate(0deg);" alt="Function Score Visualization"/>
 </div>
 
 
