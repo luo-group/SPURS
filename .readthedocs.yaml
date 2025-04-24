@@ -15,7 +15,7 @@ build:
 sphinx:
   configuration: docs/source/conf.py
 
-# Install the project itself to get all dependencies
+# Install the project and its dependencies
 python:
   install:
     - method: pip
