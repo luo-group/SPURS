@@ -93,7 +93,9 @@ ddg # ddg[i] for mut_info_list[i]
 SPURS can assign function scores to each position of the protein with protein sequence and structure as input. An example can be found at [./notebooks/functional_site_identification.ipynb](./notebooks/functional_site_identification.ipynb).
 
 Below is the visualization of the ground truth functional sites(X) and function scores assigned by SPURS for LIM domain in FHL1 (UniProt ID: Q13642; PDB ID: 1X63).
-<img src="figs/slides_function_score.png" width="400"/>
+<div align="center">
+  <img src="figs/slides_function_score.png" width="800" style="transform: rotate(0deg);" alt="Function Score Visualization"/>
+</div>
 
 
 ## 📦 Data
