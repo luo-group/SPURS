@@ -4,10 +4,19 @@
 </div>
 
 <div align="center">
+  <a href="https://pytorch.org/get-started/locally/"><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white"></a>
+  <a href="https://github.com/ashleve/lightning-hydra-template"><img alt="Template" src="https://img.shields.io/badge/-Lightning--Hydra--Template-017F2F?style=flat&logo=github&labelColor=gray"></a>
+  <br>
+  <a href="https://spurs.readthedocs.io/en/latest/"><img alt="Docs" src="https://img.shields.io/badge/DOCS-SPURS-blue"></a>
+  <br>
+  <a href="https://www.biorxiv.org/content/10.1101/2025.02.13.638154v1"><img alt="Paper" src="https://img.shields.io/badge/Paper-bioRxiv-B31B1B.svg"></a>
+</div>
+
+<div align="center">
   <img src="figs/fig1.png" alt="SPURS Model Architecture" width="600"/>
 </div>
 
-SPURS is a accurate, rapid, scalable, and generalizable stability predictor. This repository is an official implementation of the paper [Rewiring protein sequence and structure generative models to enhance protein stability prediction](https://www.biorxiv.org/content/10.1101/2025.02.13.638154v1).
+SPURS is an accurate, rapid, scalable, and generalizable stability predictor. This repository is the official implementation of the paper [Rewiring protein sequence and structure generative models to enhance protein stability prediction](https://www.biorxiv.org/content/10.1101/2025.02.13.638154v1). For detailed documentation, please visit our [documentation site](https://spurs.readthedocs.io/en/latest/).
 
 ## 🛠️ Environment
 
