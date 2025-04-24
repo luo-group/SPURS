@@ -52,3 +52,5 @@ ipykernel
 
 # huggingface_hub
 huggingface_hub
+
+sphinx_rtd_theme
