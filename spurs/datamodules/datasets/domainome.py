@@ -1,4 +1,3 @@
-
 import torch
 from torch.utils.data import ConcatDataset
 import pandas as pd
@@ -23,6 +22,20 @@ from collections import defaultdict
 import math
 ALPAHBET = 'ACDEFGHIKLMNPQRSTVWYX'
 class domainome(torch.utils.data.Dataset):
+    """A dataset class for handling domain-level protein stability data.
+
+    This dataset provides domain-specific stability measurements and is used for
+    analyzing and predicting stability changes at the protein domain level.
+    It includes domain-level annotations and corresponding stability measurements.
+
+    Args:
+        pdb_dir (str): Directory containing PDB structure files.
+        csv_fname (str): Path to the CSV file containing domain mutation data.
+        dataset_name (str): Name of the dataset.
+        stage (str, optional): Dataset stage ('full', 'train', 'test'). Defaults to 'full'.
+        mut_seq (bool, optional): Whether to include mutated sequences. Defaults to False.
+        train_size (float, optional): Training data size ratio. Defaults to 1.
+    """
 
     def __init__(self, pdb_dir, csv_fname, dataset_name, stage='full',mut_seq=False,train_size=1):
 

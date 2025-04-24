@@ -1,4 +1,3 @@
-
 import torch
 from torch.utils.data import ConcatDataset
 import pandas as pd
@@ -22,6 +21,25 @@ import threading
 ALPAHBET = 'ACDEFGHIKLMNPQRSTVWYX'
 
 class ddgGeo(torch.utils.data.Dataset):
+    """A dataset class for handling geometric-aware protein stability datasets.
+    https://github.com/Gonglab-THU/SPIRED-Fitness
+    
+    This class handles multiple datasets that incorporate geometric features:
+    - S461: 461 mutations with structural information
+    - S783: 783 mutations with geometric features
+    - S8754: Large-scale dataset with 8,754 mutations
+    - S2648: Test set with 2,648 mutations
+    - S571: Temperature-based stability dataset
+    - S4346: Extended temperature mutation dataset
+
+    Args:
+        pdb_dir (str): Directory containing PDB structure files.
+        csv_fname (str): Path to the CSV file containing mutation data.
+        dataset_name (str): Name of the dataset (e.g., 'S461', 'S783', etc.).
+        stage (str, optional): Dataset stage ('full', 'train', 'test'). Defaults to 'full'.
+        mut_seq (bool, optional): Whether to include mutated sequences. Defaults to False.
+        train_size (float, optional): Training data size ratio. Defaults to 1.
+    """
 
     def __init__(self, pdb_dir, csv_fname, dataset_name, stage='full',mut_seq=False,train_size=1):
 

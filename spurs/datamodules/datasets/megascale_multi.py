@@ -1,4 +1,3 @@
-
 import torch
 from torch.utils.data import ConcatDataset
 import pandas as pd
@@ -31,6 +30,16 @@ import random
 from IPython import embed
 
 class MegaScaleDoubleDataset(torch.utils.data.Dataset):
+    """A dataset class for handling double mutations from the MegaScale dataset.
+
+    This dataset specifically handles double mutations from Tsuboyama et al. 2023,
+    where each data point contains two mutations and their combined effect on protein stability.
+    The dataset supports train/val/test splits and includes structure information from AlphaFold.
+
+    Args:
+        reduce (str, optional): Reduction strategy for the dataset. Defaults to ''.
+        split (str, optional): Dataset split ('train', 'val', 'test'). Defaults to 'train'.
+    """
 
     def __init__(self, 
                  reduce: str = '',

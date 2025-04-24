@@ -1,4 +1,3 @@
-
 import torch
 from torch.utils.data import ConcatDataset
 import pandas as pd
@@ -31,6 +30,21 @@ import random
             
 
 class MegaScaleDataset(torch.utils.data.Dataset):
+    """A dataset class for handling protein stability data from Tsuboyama et al. 2023.
+
+    This dataset contains a large collection of protein stability measurements, including
+    single-site mutations and their effects on protein stability (ddG values).
+    The dataset supports train/val/test splits and includes structure information from AlphaFold.
+
+    Args:
+        reduce (str, optional): Reduction strategy for the dataset. Defaults to ''.
+        split (str, optional): Dataset split ('train', 'val', 'test'). Defaults to 'train'.
+        single_mut (bool, optional): Whether to handle only single mutations. Defaults to False.
+        mut_seq (bool, optional): Whether to include mutated sequences. Defaults to False.
+        std_ratio (float, optional): Will be removed in the future
+        loss_ratio (float, optional): Will be removed in the future
+        train_ratio (float, optional): Will be removed in the future
+    """
 
     def __init__(self, 
                  reduce: str = '',
@@ -314,6 +328,17 @@ class Featurizer(object):
         }
     
 class MegaScaleTestDatasets(torch.utils.data.Dataset):
+    """A comprehensive test dataset combining multiple protein stability benchmarks.
+
+    This dataset aggregates various test sets including:
+    - MegaScale test set
+    - FireProt homologue-free set
+    - SSYM direct and inverse sets
+    - S669 dataset
+    - ddg datasets (S461, S783, S8754, S2648)
+    - dtm datasets (S571, S4346)
+    """
+
     def __init__(self, 
                  ):
         current_dir = os.path.dirname(os.path.abspath(__file__))
