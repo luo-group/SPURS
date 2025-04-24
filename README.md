@@ -8,8 +8,8 @@
   <a href="https://github.com/ashleve/lightning-hydra-template"><img alt="Template" src="https://img.shields.io/badge/-Lightning--Hydra--Template-017F2F?style=flat&logo=github&labelColor=gray"></a>
   <br>
   <a href="https://spurs.readthedocs.io/en/latest/"><img alt="Docs" src="https://img.shields.io/badge/DOCS-SPURS-blue"></a>
-  <br>
   <a href="https://www.biorxiv.org/content/10.1101/2025.02.13.638154v1"><img alt="Paper" src="https://img.shields.io/badge/Paper-bioRxiv-B31B1B.svg"></a>
+  <a href="https://huggingface.co/cyclization9/SPURS/tree/main"><img alt="HuggingFace" src="https://img.shields.io/badge/🤗-SPURS-yellow"></a>
 </div>
 
 <div align="center">
@@ -26,7 +26,6 @@ conda activate spurs
 
 
 pip install -e .
-pip install git+https://github.com/facebookresearch/esm.git
 
 pip install torch==1.12.0+cu113 torchvision==0.13.0+cu113 torchaudio==0.12.0 --extra-index-url https://download.pytorch.org/whl/cu113
 ```

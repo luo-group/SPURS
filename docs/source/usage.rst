@@ -1,6 +1,8 @@
 Usage Guide
 ===========
 
+SPURS is available on GitHub at https://github.com/luo-group/SPURS.
+
 This guide will help you get started with using SPURS for protein stability prediction.
 
 Basic Usage
@@ -32,9 +34,7 @@ Single Mutation Prediction
    # Make predictions
    ddg = model(pdb, return_logist=True)
 
-The results are normalized, so the value in `ddg` for wild-type amino acids will be zero.
-
-The model returns a tensor `ddg` containing stability predictions for all possible amino acid substitutions at each position. The values are normalized so that wild-type amino acids have a score of 0, while destabilizing mutations have positive scores and stabilizing mutations have negative scores.
+The model returns a tensor ``ddg`` containing stability predictions for all possible amino acid substitutions at each position. The values are normalized so that wild-type amino acids have a score of 0, while destabilizing mutations have positive scores and stabilizing mutations have negative scores.
 
 To get the prediction for the wild-type amino acid at a specific position:
 
@@ -142,6 +142,7 @@ Then, load esm and get the logit differences:
 Regression to Sigmoid and Plotting:
 
 .. code-block:: python
+   
    from spurs.functional_site_annotation import get_sigmoid_results
 
    result = get_sigmoid_results(mask_results,ddg)
