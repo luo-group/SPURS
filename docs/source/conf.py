@@ -27,6 +27,20 @@ extensions = [
     'sphinx.ext.githubpages',    # Enable GitHub Pages
 ]
 
+# Mock imports for modules that are not installed
+autodoc_mock_imports = [
+    'torch',
+    'pytorch_lightning',
+    'hydra',
+    'biopython',
+    'einops',
+    'fairscale',
+    'e3nn',
+    'spurs',
+    'numpy',
+    'pandas',
+]
+
 # Napoleon settings
 napoleon_google_docstring = True
 napoleon_numpy_docstring = False
