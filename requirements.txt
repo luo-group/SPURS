@@ -50,10 +50,5 @@ git+https://github.com/facebookresearch/esm.git
 jupyter
 ipykernel
 
-# --------- documentation --------- #
-sphinx>=4.0.0,<6.0.0
-sphinx-rtd-theme>=1.0.0
-sphinx-autodoc-typehints>=1.19.5
-
 # huggingface_hub
 huggingface_hub
