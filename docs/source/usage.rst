@@ -96,20 +96,21 @@ The ``ddg`` tensor will contain stability predictions for each set of mutations 
 Functional Site Identification
 ----------------------------
 
-SPURS can also be used to identify functional sites in proteins:
+SPURS can also be used to identify functional sites in proteins.
 
 First, predict the stability of the mutations:
+
 .. code-block:: python
 
-   from spurs.inference import get_SPURS, parse_pdb, get_SPURS_from_hub
-   # ~ 10s
-   model, cfg = get_SPURS_from_hub()
-   pdb_name = '1qlh'
-   pdb_path = '../data/enzyme/1qlh.pdb'
-   chain = 'A'
-   pdb = parse_pdb(pdb_path, pdb_name, chain, cfg)
-   # ~ 1s
-   ddg = model(pdb,return_logist=True).cpu().detach()
+    from spurs.inference import get_SPURS, parse_pdb, get_SPURS_from_hub
+    # ~ 10s
+    model, cfg = get_SPURS_from_hub()
+    pdb_name = '1qlh'
+    pdb_path = '../data/enzyme/1qlh.pdb'
+    chain = 'A'
+    pdb = parse_pdb(pdb_path, pdb_name, chain, cfg)
+    # ~ 1s
+    ddg = model(pdb,return_logist=True).cpu().detach()
 
 Then, load esm and get the logit differences:
 
