@@ -29,7 +29,6 @@ extensions = [
 
 # Mock imports for modules that are not installed
 autodoc_mock_imports = [
-<<<<<<< HEAD
     "torchvision",
     "torchmetrics",
     "torchtext",
@@ -38,18 +37,6 @@ autodoc_mock_imports = [
     "scipy",
     "pytorch_lightning",
     "fairscale",
-=======
-    'torch',
-    'pytorch_lightning',
-    'hydra',
-    'biopython',
-    'einops',
-    'fairscale',
-    'e3nn',
-    'spurs',
-    'numpy',
-    'pandas',
->>>>>>> 3b21f9ea77675ef6c7cc0e632c77811c5ce2c358
 ]
 
 # Napoleon settings
