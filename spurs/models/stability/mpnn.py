@@ -27,6 +27,23 @@ class MPNN:
 
 @register_model('mpnn_reg')
 class MPNN(BaseModel):
+    """
+    ProteinMPNN-based model for protein stability prediction.
+    
+    This model uses the ProteinMPNN architecture to process protein structure information
+    and predict stability changes. Key features:
+    
+    1. Structure-aware message passing neural network
+    2. Support for both fixed and trainable encoders
+    3. MLP-based regression head for stability predictions
+    
+    Args:
+        cfg (MPNN): Configuration object containing:
+            - encoder: ProteinMPNN configuration
+            - name: Model name
+            - dropout: Dropout rate
+            - mlp: MLP configuration
+    """
     _default_cfg = MPNN()
 
     def __init__(self, cfg) -> None:

@@ -28,6 +28,21 @@ class ESM:
 
 @register_model('esm_reg')
 class ESM(BaseModel):
+    """
+    ESM-based model for protein stability prediction.
+    
+    This model leverages the ESM2 language model to understand protein sequences
+    and predict stability changes. Features include:
+    
+    1. Pre-trained ESM2 language model for sequence encoding
+    2. MLP-based regression head for stability predictions
+    
+    Args:
+        cfg (ESM): Configuration object containing:
+            - name: ESM2 model name (e.g. 'esm2_t33_650M_UR50D')
+            - dropout: Dropout rate
+            - mlp: MLP configuration
+    """
     _default_cfg = ESM()
 
     def __init__(self, cfg) -> None:
