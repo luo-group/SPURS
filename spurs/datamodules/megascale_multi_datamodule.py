@@ -1,4 +1,5 @@
 from .datasets.megascale import MegaScaleDataset,MegaScaleTestDatasets
+from .datasets.megascale_multi import MegaScaleDoubleDataset
 from spurs import utils
 from spurs.datamodules import register_datamodule
 from pytorch_lightning import LightningDataModule
@@ -6,15 +7,10 @@ from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 from torch.utils.data import DataLoader, Dataset
 from .datasets.data_utils import Alphabet
 from spurs import utils
-from .datasets.domainome import domainome
-
-from .datasets.enzyme import EngymeDataset
-from .datasets.ddggeo import ddgGeo
 log = utils.get_logger(__name__)
 
-
-@register_datamodule('megascale')
-class MegaScaleModule(LightningDataModule):
+@register_datamodule('megascale_multi')
+class MegaScaleDoubleModule(LightningDataModule):
     def __init__(self,
         alphabet: None,
         batch_size: int = 64,
@@ -38,35 +34,24 @@ class MegaScaleModule(LightningDataModule):
     def setup(self, stage: Optional[str] = None):
         self.alphabet = Alphabet(**self.hparams.alphabet)
         if stage == 'fit':
-            self.train_dataset = MegaScaleDataset(
+            self.train_dataset = MegaScaleDoubleDataset(
                 reduce = '',
                 split = 'train',
-                single_mut = self.hparams.single_mut,
-                mut_seq = self.hparams.mut_seq,
-                std_ratio = self.hparams.std_ratio,
-                loss_ratio = self.hparams.loss_ratio,
-                train_ratio = self.hparams.train_ratio,
             )
-            self.valid_dataset = MegaScaleDataset(
+            self.valid_dataset = MegaScaleDoubleDataset(
                 reduce = '',
                 split = 'val',
-                single_mut = self.hparams.single_mut,
-                mut_seq = self.hparams.mut_seq,
-                train_ratio = self.hparams.train_ratio,
+  
             )
-            self.collate_batch = self.train_dataset.collect_func
             self.collate_batch = self.alphabet.featurize
         elif stage == 'test':
-
-            # self.test_dataset = MegaScaleTestDatasets()
-            self.test_dataset = MegaScaleDataset(
+            
+            self.test_dataset = MegaScaleDoubleDataset(
                 reduce = '',
                 split = 'test',
-                single_mut = self.hparams.single_mut,
-                mut_seq = self.hparams.mut_seq,
-                train_ratio = 1,
+   
             )
-
+            # self.test_dataset = PtmulDataset()
             self.collate_batch = self.alphabet.featurize
         
     def train_dataloader(self):

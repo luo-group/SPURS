@@ -28,6 +28,27 @@ class SPURSConfig:
 
 @register_model('spurs')
 class SPURS(BaseModel):
+    """
+    SPURS (Structure-based Protein Understanding and Recognition System) model for protein stability prediction.
+    
+    This model combines protein structure information (from ProteinMPNN) and sequence information (from ESM2)
+    to predict protein stability changes. The architecture consists of three main components:
+    
+    1. Encoder (ProteinMPNN): Processes protein structure information
+    2. Decoder (ESM2): Processes sequence information with structural prior
+    3. MLP: Final stability prediction layer
+    
+    The model uses a structural adapter to effectively combine structural and sequence information,
+    allowing for more accurate stability predictions.
+    
+    Args:
+        cfg (SPURSConfig): Configuration object containing model parameters
+            - encoder: ProteinMPNN configuration
+            - adapter_layer_indices: List of ESM2 layer indices to adapt
+            - name: ESM2 model name
+            - dropout: Dropout rate
+            - mlp: MLP configuration
+    """
     _default_cfg = SPURSConfig()
 
     def __init__(self, cfg) -> None:
@@ -66,7 +87,7 @@ class SPURS(BaseModel):
         encoder_out = {'feats':F.pad(batch['feats'], (0, 0, 1, 1))}
         
         init_pred = batch['tokens']
-        # need to rethink
+
         decoder_out = self.decoder(
             tokens=init_pred,
             encoder_out=encoder_out,
@@ -121,6 +142,26 @@ class SPURS(BaseModel):
         return ddg
 
     def forward_encoder(self,batch):
+        """
+        Forward pass through the encoder (ProteinMPNN) component of the SPURS model.
+        
+        This function processes the input protein structure data (X, S, mask, chain_M, residue_idx, chain_encoding_all, randn_1)
+        and returns the encoded features from the ProteinMPNN encoder.
+
+        Args:
+            batch (dict): Input batch containing protein structure data
+                - X: Protein structure coordinates
+                - S: Protein structure mask
+                - mask: Mask indicating valid positions
+                - chain_M: Chain mask
+                - residue_idx: Residue indices
+                - chain_encoding_all: Chain encoding
+        
+        Returns:
+            torch.Tensor: Encoded features from the ProteinMPNN encoder     
+        """
+
+        
         X = batch['X']
         S = batch['S']
         mask = batch['mask']

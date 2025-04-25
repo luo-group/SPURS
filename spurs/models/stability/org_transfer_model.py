@@ -1555,6 +1555,22 @@ class TransferModelConfig:
     
 @register_model('org_transfermodel')
 class TransferModel(BaseModel):
+    """
+    ThermoMPNN
+    https://github.com/Kuhlman-Lab/ThermoMPNN
+    
+    This model combines ProteinMPNN's structure embeddings with a light attention mechanism
+    and MLP layers for stability prediction. Features include:
+    
+    1. Pre-trained ProteinMPNN encoder for structure understanding
+    2. Light attention mechanism for sequence context
+    3. MLP layers for final prediction
+    4. Support for mutation effect prediction
+    
+    Args:
+        cfg (TransferModelConfig): Configuration object containing:
+            - encoder: ProteinMPNN configuration
+    """
     _default_cfg = TransferModelConfig()
     def __init__(self,cfg):
         super().__init__(cfg)

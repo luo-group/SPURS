@@ -1,4 +1,3 @@
-
 import torch
 from torch.utils.data import ConcatDataset
 import pandas as pd
@@ -23,6 +22,18 @@ from collections import defaultdict
 ALPAHBET = 'ACDEFGHIKLMNPQRSTVWYX'
 
 class ddgBenchDataset(torch.utils.data.Dataset):
+    """A dataset class for handling standard protein stability benchmark datasets.
+
+    This class is used for loading and processing several benchmark datasets:
+    - SSYM-dir: Direct SSYM dataset for stability measurements
+    - SSYM-inv: Inverse SSYM dataset for stability measurements
+    - S669: A curated set of 669 stability measurements
+
+    Args:
+        pdb_dir (str): Directory containing PDB structure files.
+        csv_fname (str): Path to the CSV file containing mutation data.
+        dataset_name (str): Name of the dataset ('ssym_dir', 'ssym_inv', or 'S669').
+    """
 
     def __init__(self, pdb_dir, csv_fname, dataset_name):
 
