@@ -44,7 +44,9 @@ pdb_path = './data/inference_example/' + pdb_name + '.pdb'
 chain = 'A'
 pdb = parse_pdb(pdb_path, pdb_name, chain, cfg)
 # ~ 1s
-ddg = model(pdb,return_logist=True)
+model.eval()
+with torch.no_grad():
+  ddg = model(pdb,return_logist=True)
 ```
 The results have been already normalized, so the value in `ddg` for wild-type amino acids are zero.
 ```python
