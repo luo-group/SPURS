@@ -85,8 +85,9 @@ pdb = parse_pdb(pdb_path, pdb_name, chain, cfg)
 mut_ids, append_tensors = parse_pdb_for_mutation(mut_info_list)
 pdb['mut_ids'] = mut_ids
 pdb['append_tensors'] = append_tensors.to(device)
-
-ddg = model(pdb)
+model.eval()
+with torch.no_grad():
+  ddg = model(pdb)
 ddg # ddg[i] for mut_info_list[i]
 ```
 
