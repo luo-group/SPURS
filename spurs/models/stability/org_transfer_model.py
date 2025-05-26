@@ -1512,15 +1512,15 @@ def get_protein_mpnn(version='v_48_020.pt',tune=False):
     """Loading Pre-trained ProteinMPNN model for structure embeddings"""
     hidden_dim = 128
     num_layers = 3 
-    current_dir = os.path.dirname(os.path.realpath(__file__))
-    model_weight_dir = os.path.join(current_dir,'../../../data/checkpoints/ThermoMPNN/vanilla_model_weights')
-    checkpoint_path = os.path.join(model_weight_dir, version)
+    # current_dir = os.path.dirname(os.path.realpath(__file__))
+    # model_weight_dir = os.path.join(current_dir,'../../../data/checkpoints/ThermoMPNN/vanilla_model_weights')
+    # checkpoint_path = os.path.join(model_weight_dir, version)
     # checkpoint_path = "vanilla_model_weights/v_48_020.pt"
-    checkpoint = torch.load(checkpoint_path, map_location='cpu') 
+    # checkpoint = torch.load(checkpoint_path, map_location='cpu') 
     model = ProteinMPNN(ca_only=False, num_letters=21, node_features=hidden_dim, edge_features=hidden_dim, hidden_dim=hidden_dim, 
                         num_encoder_layers=num_layers, num_decoder_layers=num_layers, k_neighbors=checkpoint['num_edges'], augment_eps=0.0)
 
-    model.load_state_dict(checkpoint['model_state_dict'])
+    # model.load_state_dict(checkpoint['model_state_dict'])
     
     if not tune:
         model.eval()
