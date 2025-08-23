@@ -21,7 +21,7 @@ SPURS is an accurate, rapid, scalable, and generalizable stability predictor. Th
 ## 🛠️ Environment
 
 ```shell
-# on Ubuntu 20.24
+# Tested on Ubuntu 20.04, the setup completes within minutes.
 conda create -n spurs python=3.7 pip
 conda activate spurs
 
