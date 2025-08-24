@@ -171,3 +171,5 @@ data/
 notebooks/figs/
 
 notebooks/*
+
+.history/*
