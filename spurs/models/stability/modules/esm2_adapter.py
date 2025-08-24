@@ -144,8 +144,6 @@ class ESM2WithStructuralAdatper(nn.Module):
                 encoder_embed_dim=self.args.encoder.d_model,
                 dropout=self.args.dropout
             )
-            layer.train()
-            layer.use_adapter = self.use_adapter
         else:
             layer = TransformerLayer(
                 self.embed_dim,
@@ -155,29 +153,18 @@ class ESM2WithStructuralAdatper(nn.Module):
                 use_esm1b_layer_norm=True,
                 use_rotary_embeddings=True,
             )
-            layer.eval()
         return layer
 
     def forward_layers(self, x, encoder_out, padding_mask, repr_layers=[], hidden_representations=[], need_head_weights=False, attn_weights=[]):
         for layer_idx, layer in enumerate(self.layers):
             if layer_idx in self.args.adapter_layer_indices:
-                if self.use_adapter:
-                    layer.train()
-                    x, attn = layer(
-                        x, encoder_out, self_attn_padding_mask=padding_mask, need_head_weights=need_head_weights
-                    )
-                else:
-                    layer.eval()
-                    with torch.no_grad():
-                        x, attn = layer(
-                            x, None, self_attn_padding_mask=padding_mask, need_head_weights=need_head_weights
-                        )
+                x, attn = layer(
+                    x, encoder_out, self_attn_padding_mask=padding_mask, need_head_weights=need_head_weights
+                )
             else:
-                layer.eval()
-                with torch.no_grad():
-                    x, attn = layer(
-                        x, self_attn_padding_mask=padding_mask, need_head_weights=need_head_weights
-                    )
+                x, attn = layer(
+                    x, self_attn_padding_mask=padding_mask, need_head_weights=need_head_weights
+                )
             if (layer_idx + 1) in repr_layers:
                 hidden_representations[layer_idx + 1] = x.transpose(0, 1)
             if need_head_weights:
@@ -185,6 +172,7 @@ class ESM2WithStructuralAdatper(nn.Module):
                 attn_weights.append(attn.transpose(1, 0))
 
         return x, hidden_representations, attn_weights, layer_idx
+
 
     def forward(self, tokens, encoder_out, repr_layers=[], need_head_weights=False, return_contacts=False):
         if return_contacts:
