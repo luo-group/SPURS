@@ -98,7 +98,7 @@ def get_SPURS_multi_from_hub(repo_id: str = "cyclization9/SPURS", device: str = 
     """
     # Download files from Hugging Face Hub
     config_path = hf_hub_download(repo_id=repo_id, filename="spurs_multi/.hydra/config.yaml")
-    ckpt_path = hf_hub_download(repo_id=repo_id, filename="spurs/checkpoints/best.ckpt")
+    ckpt_path = hf_hub_download(repo_id=repo_id, filename="spurs_multi/checkpoints/best.ckpt")
 
     # Load config
     cfg = OmegaConf.load(config_path)
