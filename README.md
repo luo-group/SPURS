@@ -173,7 +173,7 @@ If you find `SPURS` useful in your research, please consider cite our paper:
 ```
 
 ### Reference
-Our work is based on the following works, which have made the development of SPURS faster and easier:[ProteinMPNN](https://github.com/dauparas/ProteinMPNN), [ThermoMPNN](https://github.com/Kuhlman-Lab/ThermoMPNN), [ESM](https://github.com/facebookresearch/esm), [Lightning-Hydra-Template](https://github.com/ashleve/lightning-hydra-template) and [ByProt](https://github.com/BytedProtein/ByProt).
+Our work is based on the following works, which have made the development of SPURS faster and easier: [ProteinMPNN](https://github.com/dauparas/ProteinMPNN), [ThermoMPNN](https://github.com/Kuhlman-Lab/ThermoMPNN), [ESM](https://github.com/facebookresearch/esm), [Lightning-Hydra-Template](https://github.com/ashleve/lightning-hydra-template) and [ByProt](https://github.com/BytedProtein/ByProt).
 
 ProteinMPNN
 ```
