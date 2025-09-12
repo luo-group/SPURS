@@ -159,4 +159,73 @@ taskset -c 0-80 python run_proteingym.py
 SPURS-augmented models were built upon the [Augmented models](https://www.nature.com/articles/s41587-021-01146-5) framework (Hsu et al., *Nat biotechnology*, 2022). We adapted the code from the original [GitHub repo](https://github.com/chloechsu/combining-evolutionary-and-assay-labelled-data) (commit `fdaa5bb`) and retained only the necessary files. A [`DDGPredictor`](https://github.com/li-ziang/psnet-release/blob/main/combining-evolutionary-and-assay-labelled-data/src/predictors/esm_predictors.py#L14) is added to introduce predicted ddG into the regression model.
 
 
+### Citation
+If you find `SPURS` useful in your research, please consider cite our paper:
+```
+@inproceedings{li2025rewiring,
+  title={Rewiring protein sequence and structure generative models to enhance protein stability prediction},
+  author={Li, Ziang and Luo, Yunan},
+  booktitle={International Conference on Research in Computational Molecular Biology},
+  pages={255--259},
+  year={2025},
+  organization={Springer}
+}
+```
 
+### Reference
+Our work is based on the following works, which have made the development of SPURS faster and easier:[ProteinMPNN](https://github.com/dauparas/ProteinMPNN), [ThermoMPNN](https://github.com/Kuhlman-Lab/ThermoMPNN), [ESM](https://github.com/facebookresearch/esm), [Lightning-Hydra-Template](https://github.com/ashleve/lightning-hydra-template) and [ByProt](https://github.com/BytedProtein/ByProt).
+
+ProteinMPNN
+```
+@article{dauparas2022robust,
+  title={Robust deep learning--based protein sequence design using ProteinMPNN},
+  author={Dauparas, Justas and Anishchenko, Ivan and Bennett, Nathaniel and Bai, Hua and Ragotte, Robert J and Milles, Lukas F and Wicky, Basile IM and Courbet, Alexis and de Haas, Rob J and Bethel, Neville and others},
+  journal={Science},
+  volume={378},
+  number={6615},  
+  pages={49--56},
+  year={2022},
+  publisher={American Association for the Advancement of Science}
+}
+```
+ThermoMPNN
+```
+@article{
+doi:10.1073/pnas.2314853121,
+author = {Henry Dieckhaus  and Michael Brocidiacono  and Nicholas Z. Randolph  and Brian Kuhlman },
+title = {Transfer learning to leverage larger datasets for improved prediction of protein stability changes},
+journal = {Proceedings of the National Academy of Sciences},
+volume = {121},
+number = {6},
+pages = {e2314853121},
+year = {2024},
+doi = {10.1073/pnas.2314853121},
+URL = {https://www.pnas.org/doi/abs/10.1073/pnas.2314853121},
+eprint = {https://www.pnas.org/doi/pdf/10.1073/pnas.2314853121},
+}
+```
+ESM
+```
+@article{rives2021biological,
+  title={Biological structure and function emerge from scaling unsupervised learning to 250 million protein sequences},
+  author={Rives, Alexander and Meier, Joshua and Sercu, Tom and Goyal, Siddharth and Lin, Zeming and Liu, Jason and Guo, Demi and Ott, Myle and Zitnick, C Lawrence and Ma, Jerry and others},
+  journal={Proceedings of the National Academy of Sciences},
+  volume={118},
+  number={15},
+  pages={e2016239118},
+  year={2021},
+  publisher={National Acad Sciences},
+  note={bioRxiv 10.1101/622803},
+  doi={10.1073/pnas.2016239118},
+  url={https://www.pnas.org/doi/full/10.1073/pnas.2016239118},
+}
+```
+ByProt
+```
+@inproceedings{zheng2023lm_design,
+    title={Structure-informed Language Models Are Protein Designers},
+    author={Zheng, Zaixiang and Deng, Yifan and Xue, Dongyu and Zhou, Yi and YE, Fei and Gu, Quanquan},
+    booktitle={International Conference on Machine Learning},
+    year={2023}
+}
+```
