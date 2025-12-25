@@ -162,13 +162,12 @@ SPURS-augmented models were built upon the [Augmented models](https://www.nature
 ### Citation
 If you find `SPURS` useful in your research, please consider cite our paper:
 ```
-@inproceedings{li2025rewiring,
-  title={Rewiring protein sequence and structure generative models to enhance protein stability prediction},
+@article{li2025generalizable,
+  title={Generalizable and scalable protein stability prediction with rewired protein generative models},
   author={Li, Ziang and Luo, Yunan},
-  booktitle={International Conference on Research in Computational Molecular Biology},
-  pages={255--259},
+  journal={Nature Communications},
   year={2025},
-  organization={Springer}
+  publisher={Nature Publishing Group UK London}
 }
 ```
 
