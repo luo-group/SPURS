@@ -104,7 +104,7 @@ Below is the visualization of the ground truth functional sites(X) and function 
 
 
 ## 📦 Data
-Download `data.tar.gz` from [link](https://www.dropbox.com/scl/fi/uo4e6lvptyy9df5xfulsc/data.tar.gz?rlkey=voi6fxu6ojbzwdk67jlooy8kb&st=4iinnpbc&dl=0).
+Download `data.tar.gz` from [link](https://www.dropbox.com/scl/fi/uo4e6lvptyy9df5xfulsc/data.tar.gz?rlkey=voi6fxu6ojbzwdk67jlooy8kb&st=4iinnpbc&dl=0) (also available on [HuggingFace](https://huggingface.co/cyclization9/SPURS/blob/main/data.tar.gz)).
 ```shell
 wget https://www.dropbox.com/scl/fi/uo4e6lvptyy9df5xfulsc/data.tar.gz?rlkey=voi6fxu6ojbzwdk67jlooy8kb&st=4iinnpbc&dl=0
 tar -xzvf data.tar.gz
