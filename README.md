@@ -20,7 +20,7 @@ SPURS is an accurate, rapid, scalable, and generalizable stability predictor. Th
 
 ## 🛠️ Environment
 
-> **Beta notice**: A compatibility branch with Python 3.11+ support is available: `fix/py311-inference-beta`.
+> **Beta notice**: A compatibility branch with Python 3.11+ support is available: [`fix/py311-inference-beta`](https://github.com/luo-group/SPURS/tree/fix/py311-inference-beta).
 >
 > If you run into installation issues on `main`, please try that branch.
 
