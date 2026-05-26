@@ -10,6 +10,9 @@ Prerequisites
 Installation Steps
 ----------------
 
+.. note::
+   Python 3.11+ inference support is currently in beta.
+
 1. Inference environment (recommended):
 
 .. code-block:: bash

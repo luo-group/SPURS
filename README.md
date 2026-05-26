@@ -20,6 +20,8 @@ SPURS is an accurate, rapid, scalable, and generalizable stability predictor. Th
 
 ## 🛠️ Environment
 
+> **Beta notice**: Python 3.11+ inference support is currently **beta**. Please report issues if you observe environment-specific behavior.
+
 ```shell
 # Option A (recommended for inference, Python 3.11+)
 conda create -n spurs_higher python=3.11 pip
