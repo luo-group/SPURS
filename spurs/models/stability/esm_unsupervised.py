@@ -22,7 +22,7 @@ class MPNNESMCAT:
     separate_loss: bool = True
     name: str = 'esm2_t33_650M_UR50D'
     dropout: float = 0.1
-    mlp: MLPConfig = field(default=MLPConfig())
+    mlp: MLPConfig = field(default_factory=MLPConfig)
 
 
 @register_model('esm_unsupervised')

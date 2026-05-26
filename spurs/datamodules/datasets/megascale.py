@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import pickle
 import os
+import logging
 from Bio import pairwise2
 from math import isnan
 from tqdm import tqdm
@@ -12,21 +13,17 @@ from typing import Optional
 from .utils import get_pdb,parse_pdb
 import lmdb
 import glob
-from spurs import utils
-log = utils.get_logger(__name__)
 import json
 from .LMDBDataset import LMDBDataset
 from .batch import CoordBatchConverter
 from .data_utils import Alphabet
-from .fireport import FireProtDataset
-from .ddgbench import ddgBenchDataset
-from .ddggeo import ddgGeo
-from .domainome import domainome
 ALPAHBET = 'ACDEFGHIKLMNPQRSTVWYX'
 from joblib import Parallel, delayed
 from collections import defaultdict
 import math
 import random
+
+log = logging.getLogger(__name__)
             
 
 class MegaScaleDataset(torch.utils.data.Dataset):
@@ -341,6 +338,10 @@ class MegaScaleTestDatasets(torch.utils.data.Dataset):
 
     def __init__(self, 
                  ):
+        from .ddgbench import ddgBenchDataset
+        from .ddggeo import ddgGeo
+        from .fireport import FireProtDataset
+
         current_dir = os.path.dirname(os.path.abspath(__file__))
         root_path = os.path.join(current_dir,'../../../')
 

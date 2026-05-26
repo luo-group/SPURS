@@ -1,6 +1,3 @@
-# Legacy training dependency stack (Python 3.7 era).
-# For modern inference-only setup, use requirements.inference.txt.
-
 # --------- pytorch --------- #
 torch==1.12.0
 #torchvision==0.13.0+cu116

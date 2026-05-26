@@ -1,12 +1,12 @@
 # https://github.com/BytedProtein/ByProt/blob/dd279dc85f76ee2c28c819b71bf3911b90159f0a/src/byprot/datamodules/datasets/cath.py#L123
 import json
+import logging
 import os
 from functools import partial
 from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 import torch
-from spurs import utils
 from torch.nn import functional as F
 from torch.utils.data.datapipes.map import SequenceWrapper
 from torch.utils.data.dataset import Subset
@@ -15,7 +15,7 @@ from .data_utils import Alphabet
 
 import esm
 
-log = utils.get_logger(__name__)
+log = logging.getLogger(__name__)
 
 # NOTE: batch is a list mapping
 # each mapping has columns:

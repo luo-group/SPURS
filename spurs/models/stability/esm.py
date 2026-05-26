@@ -18,12 +18,12 @@ log = utils.get_logger(__name__)
 from .mlp import MLP, MLPConfig
 @dataclass
 class ESM:
-    encoder: ProteinMPNNConfig = field(default=ProteinMPNNConfig())
+    encoder: ProteinMPNNConfig = field(default_factory=ProteinMPNNConfig)
     adapter_layer_indices: List = field(default_factory=lambda: [-1, ])
     separate_loss: bool = True
     name: str = 'esm2_t33_650M_UR50D'
     dropout: float = 0.1
-    mlp: MLPConfig = field(default=MLPConfig())
+    mlp: MLPConfig = field(default_factory=MLPConfig)
 
 
 @register_model('esm_reg')

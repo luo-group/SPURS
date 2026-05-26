@@ -4,6 +4,7 @@
 # LICENSE file in the root directory of this source tree.
 
 from copy import deepcopy
+import logging
 import math
 from typing import Union
 
@@ -26,9 +27,15 @@ from esm.modules import (
     gelu,
 )
 from esm.multihead_attention import MultiheadAttention
-from spurs.utils.config import compose_config as Cfg, merge_config
-from spurs import utils
-log = utils.get_logger(__name__)
+log = logging.getLogger(__name__)
+
+
+def Cfg(**kwds):
+    return OmegaConf.create(kwds)
+
+
+def merge_config(default_cfg, override_cfg):
+    return OmegaConf.merge(default_cfg, override_cfg)
 
 class ESM2(nn.Module):
     @classmethod

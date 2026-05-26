@@ -18,12 +18,12 @@ from .mlp import MLP, MLPConfig
 
 @dataclass
 class MPNN:
-    encoder: ProteinMPNNConfig = field(default=ProteinMPNNConfig())
+    encoder: ProteinMPNNConfig = field(default_factory=ProteinMPNNConfig)
     adapter_layer_indices: List = field(default_factory=lambda: [-1, ])
     separate_loss: bool = True
     name: str = 'proteinmpnn'
     dropout: float = 0.1
-    mlp: MLPConfig = field(default=MLPConfig()) # mlp is not used in this model
+    mlp: MLPConfig = field(default_factory=MLPConfig) # mlp is not used in this model
 
     
 

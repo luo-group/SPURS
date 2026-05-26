@@ -1,18 +1,10 @@
 from omegaconf import OmegaConf
-try:
-    import esm
-    ESM_INSTALLED = True
-except:
-    ESM_INSTALLED = False
-
-from spurs.utils.config import compose_config, merge_config
-import pytorch_lightning as pl
 
 import torch
 from torch import nn
-import numpy as np
 
-class RegressionModel(pl.LightningModule):
+
+class RegressionModel(nn.Module):
     _default_cfg = {}
 
     def __init__(self, cfg) -> None:

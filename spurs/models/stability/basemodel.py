@@ -6,8 +6,6 @@ try:
 except:
     ESM_INSTALLED = False
 
-from spurs.utils.config import compose_config, merge_config
-
 import torch
 from torch import nn
 import numpy as np

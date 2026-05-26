@@ -13,12 +13,20 @@ from typing import (Any, Callable, Iterator, List, Sequence, Tuple, TypeVar,
 import esm
 import numpy as np
 import torch
-from pytorch_lightning.utilities.seed import seed_everything
 from torch import distributed as dist
 from torch import nn
 from torch.utils.data import DataChunk
 from torch.utils.data.distributed import DistributedSampler
 from torch.utils.data.sampler import BatchSampler, SequentialSampler
+import random
+
+
+def seed_everything(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    return seed
 
 
 class Alphabet(object):

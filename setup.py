@@ -1,8 +1,19 @@
 from setuptools import find_packages, setup
 
-# Read requirements.txt and filter out git URLs
-with open("requirements.txt") as f:
-    requirements = [line.strip() for line in f if not line.strip().startswith('git+')]
+
+def _read_requirements(path):
+    requirements = []
+    with open(path) as f:
+        for line in f:
+            req = line.strip()
+            if not req or req.startswith('#') or req.startswith('git+'):
+                continue
+            requirements.append(req)
+    return requirements
+
+
+inference_requirements = _read_requirements("requirements.inference.txt")
+legacy_requirements = _read_requirements("requirements.training-legacy.txt")
 
 setup(
     name="spurs",  
@@ -10,7 +21,10 @@ setup(
     description="",
     author="Ziang Li",
     author_email="zaing at gatech.edu",
-    install_requires=requirements,
+    install_requires=inference_requirements,
+    extras_require={
+        "training-legacy": legacy_requirements,
+    },
     packages=find_packages(),  
     package_dir={"": "."},  
 )

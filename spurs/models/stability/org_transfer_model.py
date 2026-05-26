@@ -1551,7 +1551,7 @@ from spurs.models.stability.basemodel import BaseModel
 
 @dataclass
 class TransferModelConfig:
-    encoder: ProteinMPNNConfig = field(default=ProteinMPNNConfig())
+    encoder: ProteinMPNNConfig = field(default_factory=ProteinMPNNConfig)
     
 @register_model('org_transfermodel')
 class TransferModel(BaseModel):

@@ -1,0 +1,12 @@
+# Inference-first stack (Python 3.11+)
+# This file intentionally avoids torchtext and old training-only pins.
+
+torch>=2.3
+omegaconf>=2.3
+huggingface_hub>=0.20
+fair-esm>=2.0.0
+biopython>=1.79
+einops>=0.6
+e3nn>=0.5.6
+fairscale>=0.4.13
+numpy>=1.24

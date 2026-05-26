@@ -17,12 +17,12 @@ log = utils.get_logger(__name__)
 from .mlp import MLP, MLPConfig
 @dataclass
 class MPNN:
-    encoder: ProteinMPNNConfig = field(default=ProteinMPNNConfig())
+    encoder: ProteinMPNNConfig = field(default_factory=ProteinMPNNConfig)
     adapter_layer_indices: List = field(default_factory=lambda: [-1, ])
     separate_loss: bool = True
     name: str = 'ProteinMPNN'
     dropout: float = 0.1
-    mlp: MLPConfig = field(default=MLPConfig())
+    mlp: MLPConfig = field(default_factory=MLPConfig)
 
 
 @register_model('mpnn_reg')

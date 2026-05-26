@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+import logging
 from typing import List
 
 import torch
@@ -7,23 +8,23 @@ from spurs.models.stability.basemodel import BaseModel
 from spurs.models.stability.protein_mpnn import ProteinMPNNConfig
 
 from spurs.models.stability.modules.esm2 import ESM2
-from spurs import utils
 from spurs.models.stability.org_transfer_model import get_protein_mpnn
 import torch.nn.functional as F
 from spurs.models.stability.modules.esm2_adapter import ESM2WithStructuralAdatper
 import torch.nn as nn
-log = utils.get_logger(__name__)
 from .mlp import MLP, MLPConfig
+
+log = logging.getLogger(__name__)
 
 
 @dataclass
 class SPURSConfig:
-    encoder: ProteinMPNNConfig = field(default=ProteinMPNNConfig())
+    encoder: ProteinMPNNConfig = field(default_factory=ProteinMPNNConfig)
     adapter_layer_indices: List = field(default_factory=lambda: [-1, ])
     separate_loss: bool = True
     name: str = 'esm2_t33_650M_UR50D'
     dropout: float = 0.1
-    mlp: MLPConfig = field(default=MLPConfig())
+    mlp: MLPConfig = field(default_factory=MLPConfig)
 
 
 @register_model('spurs')

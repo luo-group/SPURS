@@ -233,6 +233,7 @@ class AutoMetric(nn.Module):
 
 
 TASK_REGISTRY = {}
+_TASKS_DISCOVERED = False
 
 
 def register_task(name):
@@ -243,5 +244,11 @@ def register_task(name):
     return decorator
 
 
-# automatically import any Python files in the models/ directory
-utils.import_modules(os.path.dirname(__file__), "spurs.tasks")
+def ensure_tasks_discovered():
+    global _TASKS_DISCOVERED
+    if _TASKS_DISCOVERED:
+        return
+
+    # automatically import any Python files in the tasks/ directory
+    utils.import_modules(os.path.dirname(__file__), "spurs.tasks")
+    _TASKS_DISCOVERED = True

@@ -2,6 +2,9 @@
 from spurs.datamodules import DATAMODULE_REGISTRY
 from spurs.models import MODEL_REGISTRY
 from spurs.tasks import TASK_REGISTRY
+from spurs import datamodules as _datamodules_pkg
+from spurs import models as _models_pkg
+from spurs import tasks as _tasks_pkg
 
 registry_dict = dict(
     datamodule=DATAMODULE_REGISTRY,
@@ -9,7 +12,20 @@ registry_dict = dict(
     model=MODEL_REGISTRY
 )
 
+_discovery_hooks = dict(
+    datamodule=_datamodules_pkg.ensure_datamodules_discovered,
+    task=_tasks_pkg.ensure_tasks_discovered,
+    model=_models_pkg.ensure_models_discovered,
+)
+
+
+def _ensure_discovered(group_name):
+    hook = _discovery_hooks.get(group_name)
+    if hook is not None:
+        hook()
+
 def get_module(group_name, module_name):
+    _ensure_discovered(group_name)
     group = registry_dict.get(group_name, None)
     if group is None:
         raise KeyError(f'{group_name} is not a valid registry group {registry_dict.keys()}.')
@@ -17,6 +33,7 @@ def get_module(group_name, module_name):
     return group.get(module_name)
 
 def get_registered_modules(group_name):
+    _ensure_discovered(group_name)
     group = registry_dict.get(group_name)
     if group is not None:
         return group.keys()

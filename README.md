@@ -21,15 +21,19 @@ SPURS is an accurate, rapid, scalable, and generalizable stability predictor. Th
 ## 🛠️ Environment
 
 ```shell
-# Tested on Ubuntu 20.04, the setup completes within minutes.
-conda create -n spurs python=3.7 pip
-conda activate spurs
-
-
+# Option A (recommended for inference, Python 3.11+)
+conda create -n spurs_higher python=3.11 pip
+conda activate spurs_higher
+pip install -r requirements.inference.txt
 pip install -e .
 
-pip install torch==1.12.0+cu113 torchvision==0.13.0+cu113 torchaudio==0.12.0 --extra-index-url https://download.pytorch.org/whl/cu113
+# Option B (legacy training stack, Python 3.7)
+conda create -n spurs python=3.7 pip
+conda activate spurs
+pip install -r requirements.training-legacy.txt
+pip install -e .
 
+# Legacy stack also needs ESM from source
 pip install git+https://github.com/facebookresearch/esm.git
 ```
 

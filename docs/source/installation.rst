@@ -10,19 +10,24 @@ Prerequisites
 Installation Steps
 ----------------
 
-1. Create a new conda environment:
+1. Inference environment (recommended):
+
+.. code-block:: bash
+
+   conda create -n spurs_higher python=3.11 pip
+   conda activate spurs_higher
+   pip install -r requirements.inference.txt
+   pip install -e .
+
+2. Legacy training environment (optional):
 
 .. code-block:: bash
 
    conda create -n spurs python=3.7 pip
    conda activate spurs
-
-2. Install SPURS and its dependencies:
-
-.. code-block:: bash
-
+   pip install -r requirements.training-legacy.txt
    pip install -e .
-   pip install torch==1.12.0+cu113 torchvision==0.13.0+cu113 torchaudio==0.12.0 --extra-index-url https://download.pytorch.org/whl/cu113
+   pip install git+https://github.com/facebookresearch/esm.git
 
 Verification
 -----------
@@ -33,4 +38,3 @@ To verify your installation, you can run a simple test:
 
    from spurs.inference import get_SPURS, parse_pdb
    model, cfg = get_SPURS_from_hub()
-
