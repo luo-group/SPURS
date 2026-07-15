@@ -16,7 +16,7 @@
   <img src="figs/fig1_v2.png" alt="SPURS Model Architecture" width="800"/>
 </div>
 
-SPURS is an accurate, rapid, scalable, and generalizable stability predictor. This repository is the official implementation of the paper [Generalizable and scalable protein stability prediction with rewired protein generative models](https://www.nature.com/articles/s41467-025-67609-4). For detailed documentation, please visit our [documentation site](https://spurs.readthedocs.io/en/latest/). [Slides](https://docs.google.com/presentation/d/12nXRpivWaB92JbWOzxOVsy68h-4WwXwHlZyzFnqxIsA/edit?slide=id.g3f4db896e86_3_0#slide=id.g3f4db896e86_3_0)
+SPURS is an accurate, rapid, scalable, and generalizable stability predictor. This repository is the official implementation of the paper [Generalizable and scalable protein stability prediction with rewired protein generative models](https://www.nature.com/articles/s41467-025-67609-4). For detailed documentation, please visit our [documentation site](https://spurs.readthedocs.io/en/latest/). [Slides](https://docs.google.com/presentation/d/12nXRpivWaB92JbWOzxOVsy68h-4WwXwHlZyzFnqxIsA/edit?usp=sharing)
 
 ## 🛠️ Environment
 
