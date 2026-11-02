@@ -36,7 +36,7 @@ def get_SPURS(ckpt_path: str, device: str = 'cuda' if torch.cuda.is_available() 
 
     model = SPURS(cfg['model']).to(device)
 
-    ckpt = torch.load(os.path.join(ckpt_path,'checkpoints/best.ckpt'), map_location=torch.device('cpu'))['state_dict']
+    ckpt = torch.load(os.path.join(ckpt_path,'checkpoints/best.ckpt'), map_location=torch.device('cpu'), weights_only=True)['state_dict']
     ckpt_remove_model = {k[6:]:v for k, v in ckpt.items() if 'model.' in k}
     model.load_state_dict(ckpt_remove_model, strict=False)    
     
@@ -72,7 +72,7 @@ def get_SPURS_from_hub(repo_id: str = "cyclization9/SPURS", device: str = 'cuda'
 
     # Instantiate model and load checkpoint
     model = SPURS(cfg['model']).to(device)
-    ckpt = torch.load(ckpt_path, map_location=torch.device('cpu'))['state_dict']
+    ckpt = torch.load(ckpt_path, map_location=torch.device('cpu'), weights_only=True)['state_dict']
     ckpt_remove_model = {k[6:]: v for k, v in ckpt.items() if 'model.' in k}
     model.load_state_dict(ckpt_remove_model, strict=False)
 
@@ -107,7 +107,7 @@ def get_SPURS_multi_from_hub(repo_id: str = "cyclization9/SPURS", device: str = 
 
     # Instantiate model and load checkpoint
     model = SPURSMulti(cfg['model']).to(device)
-    ckpt = torch.load(ckpt_path, map_location=torch.device('cpu'))['state_dict']
+    ckpt = torch.load(ckpt_path, map_location=torch.device('cpu'), weights_only=True)['state_dict']
     ckpt_remove_model = {k[6:]: v for k, v in ckpt.items() if 'model.' in k}
     model.load_state_dict(ckpt_remove_model, strict=False)
 
